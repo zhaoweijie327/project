@@ -27,7 +27,7 @@ class Driver:
                 'appPackage': 'com.bjcsxq.chat.carfriend',
                 'appActivity': 'com.bjcsxq.chat.carfriend'
             }
-            cls.__driver = webdriver.Remote('http://127.0.0.1:4703/wd/hub',data)
+            cls.__driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',data)
             return cls.__driver
         else:
             return cls.__driver

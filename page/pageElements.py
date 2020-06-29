@@ -1,8 +1,6 @@
 from selenium.webdriver.common.by import By
 
-'''
-管理元素属性值
-'''
+
 class PageElements:
     """管理页面元素"""
 

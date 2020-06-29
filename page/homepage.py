@@ -1,5 +1,7 @@
+from selenium.common.exceptions import TimeoutException
+
 from base.base_driver import Base
-from base.findelement import FindElement
+from base.findelement import PageElements
 
 '''定位元素并操作'''
 
@@ -10,16 +12,12 @@ class HomePage(Base):
         super().__init__()
 
     # 定位并操作
-    def find_caozuo_fangfa(self,username,pwd):
-        # 点击稍后更新
-        self.find_click(FindElement.shaohou_gengxin)
-        # 点击右下角我的
-        self.find_click(FindElement.my_de)
-        # 跳转到我的页面点击登陆/注册
-        self.find_click(FindElement.login_zhuce)
-        # 跳转到登陆页面输入用户名
-        self.find_send_key(FindElement.login_user,username)
-        # 跳转到登陆页面输入密码
-        self.find_send_key(FindElement.login_pwd,pwd)
-        # 跳转到登陆页面点击登陆按钮
-        self.find_click(FindElement.login_button)
+    def click_my_btn(self):
+        """点击我的"""
+        try:
+            # 点击稍后更新
+            self.click_ele(PageElements.home_update_later_xpath)
+        except TimeoutException:
+            print("当前版本app没有更新提示框")
+        # 点击我的
+        self.click_ele(PageElements.home_my_btn_id)

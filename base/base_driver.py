@@ -13,54 +13,48 @@ class Base:
     def __init__(self):
         self.driver = Driver().driver_open()
 
-    # 封装显示等待定位单个元素
-    def find_ele_wait(self,loc,time_wait=10,time_sousuo=1.0):
-        '''
-        封装显示等待定位单个元素
-        :param loc: 定位方式+定位元素
-        :param time_wait: 等待时间
-        :param time_sousuo: 搜索间隔时间
-        :return:
-        '''
-        return WebDriverWait(self.driver,time_wait,time_sousuo).until(lambda x : x.fin_element(*loc))
+    def search_ele(self, loc, timeout=5, poll_frequency=1.0):
+        """
+        定位单个元素
+        :param loc: 元组 (By.ID,属性值) (By.XPATH,属性值) (By.CLASS_NAME,属性值)
+        :param timeout: 搜索超时时间
+        :param poll_frequency: 搜索间隔
+        :return: 返回定位对象
+        """
+        return WebDriverWait(self.driver, timeout, poll_frequency).until(lambda x: x.find_element(*loc))
 
-    # 封装显示等待定位单个元素
-    def find_eles_wait(self,loc,time_wait=10,time_sousuo=1.0):
-        '''
-        封装显示等待定位一组元素
-        :param loc: 定位方式+定位元素
-        :param time_wait: 等待时间
-        :param time_sousuo: 搜索间隔时间
-        :return:
-        '''
-        return WebDriverWait(self.driver,time_wait,time_sousuo).until(lambda x : x.fin_elements(*loc))
+    def search_eles(self, loc, timeout=5, poll_frequency=1.0):
+        """
+        定位一组元素
+        :param loc: 元组 (By.ID,属性值) (By.XPATH,属性值) (By.CLASS_NAME,属性值)
+        :param timeout: 搜索超时时间
+        :param poll_frequency: 搜索间隔
+        :return: 返回定位对象列表
+        """
+        return WebDriverWait(self.driver, timeout, poll_frequency).until(lambda x: x.find_elements(*loc))
 
-    # 封装点击操作
-    def find_click(self,loc):
-        '''
-        封装点击操作
-        :param loc:  定位元素
+    def click_ele(self, loc, timeout=5, poll_frequency=1.0):
+        """
+        点击元素
+        :param loc: 元组 (By.ID,属性值) (By.XPATH,属性值) (By.CLASS_NAME,属性值)
+        :param timeout: 搜索超时时间
+        :param poll_frequency: 搜索间隔
         :return:
-        '''
-        self.find_ele_wait(loc).click()
+        """
+        self.search_ele(loc, timeout, poll_frequency).click()
 
-    # 封装输入操作
-    def find_send_key(self,loc,text):
-        '''
-        封装输入操作
-        :param loc: 定位元素
-        :param text: 输入的内容
+    def send_ele(self, loc, text, timeout=5, poll_frequency=1.0):
+        """
+        输入文本内容
+        :param loc: 元组 (By.ID,属性值) (By.XPATH,属性值) (By.CLASS_NAME,属性值)
+        :param text: 文本内容
+        :param timeout: 搜索超时时间
+        :param poll_frequency: 搜索间隔
         :return:
-        '''
-        send_key = self.find_ele_wait(loc)
-        send_key.clear()
-        send_key.send_keys(text)
-
-    # 封装获取信息
-    def find_text(self,element):
-        '''
-        封装获取信息
-        :param element: 获取的元素的信息
-        :return:
-        '''
-        return element.text
+        """
+        # 定位
+        input_text = self.search_ele(loc, timeout, poll_frequency)
+        # 清空
+        input_text.clear()
+        # 输入
+        input_text.send_keys(text)
