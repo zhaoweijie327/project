@@ -58,3 +58,30 @@ class Base:
         input_text.clear()
         # 输入
         input_text.send_keys(text)
+
+    def swipe_screen(self, tag=1):
+        """
+        滑动屏幕
+        :param tag: 1:向上 2:向下 3:向左 4: 向右
+        :return:
+        """
+        # 分辨率
+        size = self.driver.get_window_size()
+        # 宽
+        width = size.get("width")
+        # 高
+        height = size.get("height")
+        time.sleep(1)
+        # 滑动 上下 高80 -高20 宽50   左右 宽80 -宽20 高50
+        if tag == 1:
+            # 向上滑动
+            self.driver.swipe(width * 0.5, height * 0.8, width * 0.5, height * 0.2, 2000)
+        if tag == 2:
+            # 向下滑动
+            self.driver.swipe(width * 0.5, height * 0.2, width * 0.5, height * 0.8, 2000)
+        if tag == 3:
+            # 向左滑动
+            self.driver.swipe(width * 0.8, height * 0.5, width * 0.2, height * 0.5, 2000)
+        if tag == 4:
+            # 向右滑动
+            self.driver.swipe(width * 0.2, height * 0.5, width * 0.8, height * 0.5, 2000)

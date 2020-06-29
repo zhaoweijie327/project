@@ -25,7 +25,7 @@ class Driver:
                 'platformVersion': '5.1',
                 'deviceName': 'sanxing',
                 'appPackage': 'com.bjcsxq.chat.carfriend',
-                'appActivity': 'com.bjcsxq.chat.carfriend'
+                'appActivity': '.module_main.activity.MainActivity'
             }
             cls.__driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',data)
             return cls.__driver
